@@ -8,14 +8,25 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
+      # Checkout the repository
       - uses: actions/checkout@v3
+
+      # Set up Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.8
+
+      # Install dependencies (including pytest or other required packages)
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          pip install -r requirements.txt  # Install dependencies from requirements.txt
+
+      # Run tests (ensure tests are discoverable in the right directory)
       - name: Run tests
-        run: python -m unittest discover
+        run: |
+          python -m unittest discover tests  # Specify the 'tests' directory
+
